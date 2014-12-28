@@ -43,7 +43,7 @@ function createPairRapper(opts) {
         var suggestion = probable.pickFromArray(suggestions);
         var complement = getComplementFromSuggestion(topic, suggestion);
         var rap = capitalizeFirst(sprintf(rapOpts.template, topic, complement));
-        done(error, rap);
+        done(error, formatRap(rap));
       }
     }
   }
@@ -55,6 +55,12 @@ function createPairRapper(opts) {
 
   function capitalizeFirst(str) {
     return str.slice(0, 1).toUpperCase() + str.slice(1);
+  }
+
+  function formatRap(rap) {
+    var lines = rap.split(' / ');
+    var capitalizedLines = lines.map(capitalizeFirst);
+    return capitalizedLines.join('\n');
   }
 
   return {
