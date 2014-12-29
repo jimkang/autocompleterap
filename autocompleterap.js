@@ -6,6 +6,13 @@ var config = require('./config');
 var lineChomper = require('line-chomper');
 var jsonfile = require('jsonfile');
 var getReliableTemplate = require('./getreliabletemplate');
+var Twit = require('twit');
+
+var dryRun = false;
+
+if (process.argv.length > 2) {
+  dryRun = (process.argv[2].toLowerCase() == '--dry');
+}
 
 var pairRapper = createPairRapper({
   wordnok: createWordnok({
@@ -14,6 +21,8 @@ var pairRapper = createPairRapper({
   autocompl: autocompl,
   probable: probable
 });
+
+var twit = new Twit(config.twitter);
 
 function postRapForTemplate(error, template) {
   if (error) {
@@ -36,6 +45,23 @@ function postPairRap(error, rap) {
   }
   else {
     console.log(rap);
+    if (!dryRun) {
+      twit.post(
+        'statuses/update',
+        {
+          status: rap
+        },
+        function done(twitterError, data, response) {
+          if (twitterError) {
+            console.log(twitterError);
+            console.log('data:', data);
+          }
+          else {
+            console.log('Posted to Twitter.');
+          }
+        }
+      );
+    }
   }
 }
 
