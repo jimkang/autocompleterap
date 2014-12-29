@@ -1,22 +1,26 @@
 {
-  "name": "rapgamepairs",
+  "name": "autocompleterap",
   "version": "1.0.0",
   "description": "Gets raps for pairs of things as suggested by Google autocomplete.",
-  "main": "index.js",
+  "main": "autocompleterap.js",
   "scripts": {
     "test": "make test"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:jimkang/rapgamepairs.git"
+    "url": "git@github.com:jimkang/autocompleterap.git"
   },
-  "keywords": [],
+  "keywords": [
+    "rap",
+    "autocomplete",
+    "bot"
+  ],
   "author": "Jim Kang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jimkang/rapgamepairs/issues"
+    "url": "https://github.com/jimkang/autocompleterap/issues"
   },
-  "homepage": "https://github.com/jimkang/rapgamepairs",
+  "homepage": "https://github.com/jimkang/autocompleterap",
   "devDependencies": {
     "tape": "^3.0.3"
   },
@@ -27,6 +31,7 @@
     "line-chomper": "^0.4.5",
     "probable": "^1.0.0",
     "sprintf-js": "^1.0.2",
+    "twit": "^1.1.18",
     "wordnok": "^1.0.0"
   }
 }
