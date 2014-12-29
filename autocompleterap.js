@@ -5,6 +5,7 @@ var createWordnok = require('wordnok');
 var config = require('./config');
 var lineChomper = require('line-chomper');
 var jsonfile = require('jsonfile');
+var getReliableTemplate = require('./getreliabletemplate');
 
 var pairRapper = createPairRapper({
   wordnok: createWordnok({
@@ -14,7 +15,7 @@ var pairRapper = createPairRapper({
   probable: probable
 });
 
-function getRapForTemplate(error, template) {
+function postRapForTemplate(error, template) {
   if (error) {
     console.log(error);
   }
@@ -38,7 +39,7 @@ function postPairRap(error, rap) {
   }
 }
 
-function getTemplate(done) {
+function getUnvettedTemplate(done) {
   var templateOffsets = jsonfile.readFileSync('templatelineoffsets.json');
   var offsetToGet = probable.pickFromArray(templateOffsets);
   lineChomper.chomp(
@@ -59,4 +60,9 @@ function getTemplate(done) {
   );
 }
 
-getTemplate(getRapForTemplate);
+if (probable.roll(5) >= 3) {
+  getUnvettedTemplate(postRapForTemplate);
+}
+else {
+  postRapForTemplate(null, getReliableTemplate());
+}
