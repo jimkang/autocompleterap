@@ -10,8 +10,12 @@ var mockWordnok = {
 
 
 var mockProbable = {
-  pickFromArray: function mockPickFromArray(array) {
-    return array[array.length - 1];
+  createRangeTableFromDict: function mockCreateRangeTableFromDict(dict) {
+    return {
+      roll: function mockRoll() {
+        return 'peanut butter and chocolate';
+      }
+    };
   }
 };
 
@@ -38,7 +42,7 @@ test('Basic test', function basicTest(t) {
 
   pairRapper.getPairRap(
     {
-      template: '%s and %s, yeah I\'m fucked up now',
+      template: '%s, yeah I\'m fucked up now',
     },
     function checkRap(error, rap) {
       t.ok(!error, 'Shouldn\'t get error.');
@@ -73,7 +77,7 @@ test('Trying again if there\'s no suggestions', function tryAgainTest(t) {
 
   pairRapper.getPairRap(
     {
-      template: '%s and %s, yeah I\'m fucked up now',
+      template: '%s, yeah I\'m fucked up now',
     },
     function checkRap(error, rap) {
       t.ok(!error, 'Shouldn\'t get error.');
@@ -106,7 +110,7 @@ test('Formatting', function formattingTest(t) {
 
   pairRapper.getPairRap(
     {
-      template: 'give me the microphone first so I can bust like a bubble / %s and %s together, now you know you in trouble',
+      template: 'give me the microphone first so I can bust like a bubble / %s together, now you know you in trouble',
     },
     function checkRap(error, rap) {
       t.ok(!error, 'Shouldn\'t get error.');

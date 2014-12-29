@@ -31,6 +31,12 @@ function createPairRapper(opts) {
           return;
         }
 
+        if (Array.isArray(suggestions)) {
+          suggestions = suggestions.map(function trimString(s) {
+            return s.trim();
+          });
+        }
+
         if (!suggestions || suggestions.length < 1) {
           // Start over.
           console.log('Got no suggestions for', topic, '. Trying again.');
@@ -40,18 +46,12 @@ function createPairRapper(opts) {
           return;
         }
 
-        var suggestion = probable.pickFromArray(suggestions);
-        var complement = getComplementFromSuggestion(topic, suggestion);
-        complement = complement.trim();
-        var rap = capitalizeFirst(sprintf(rapOpts.template, topic, complement));
+        var suggestion = pickSuggestionFromSuggestions(suggestions);
+        suggestion = formatSuggestion(suggestion);
+        var rap = capitalizeFirst(sprintf(rapOpts.template, suggestion));
         done(error, formatRap(rap));
       }
     }
-  }
-
-  function getComplementFromSuggestion(topic, suggestion) {
-    // 5 is the length of ' and '.
-    return suggestion.substr(topic.length + 5);
   }
 
   function capitalizeFirst(str) {
@@ -62,6 +62,25 @@ function createPairRapper(opts) {
     var lines = rap.split(' / ');
     var capitalizedLines = lines.map(capitalizeFirst);
     return capitalizedLines.join('\n');
+  }
+
+  function pickSuggestionFromSuggestions(suggestions) {
+    var probabilityMapping = {};
+    // Weight the earlier suggestions higher.
+    suggestions.forEach(function addSuggestion(suggestion, i) {
+      probabilityMapping[suggestion] = suggestions.length - i;
+    });
+    // console.log(probabilityMapping);
+
+    var table = probable.createRangeTableFromDict(probabilityMapping);
+    return table.roll();
+  }
+
+  function formatSuggestion(suggestion) {
+    if (suggestion.indexOf(' and ') === -1) {
+      suggestion = suggestion.replace(' ', ' and ');
+    }
+    return suggestion.trim();
   }
 
   return {
