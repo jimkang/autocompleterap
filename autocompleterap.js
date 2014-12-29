@@ -66,10 +66,10 @@ function postPairRap(error, rap) {
 }
 
 function getUnvettedTemplate(done) {
-  var templateOffsets = jsonfile.readFileSync('templatelineoffsets.json');
+  var templateOffsets = jsonfile.readFileSync(__dirname + '/templatelineoffsets.json');
   var offsetToGet = probable.pickFromArray(templateOffsets);
   lineChomper.chomp(
-    'templates.txt',
+    __dirname + '/templates.txt',
     {
       lineOffsets: templateOffsets,
       fromLine: offsetToGet.line,
