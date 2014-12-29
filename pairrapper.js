@@ -42,6 +42,7 @@ function createPairRapper(opts) {
 
         var suggestion = probable.pickFromArray(suggestions);
         var complement = getComplementFromSuggestion(topic, suggestion);
+        complement = complement.trim();
         var rap = capitalizeFirst(sprintf(rapOpts.template, topic, complement));
         done(error, formatRap(rap));
       }

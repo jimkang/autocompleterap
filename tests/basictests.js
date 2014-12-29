@@ -95,7 +95,7 @@ test('Formatting', function formattingTest(t) {
         results = [
           'peanut butter and jelly',
           'peanut butter and jelly dance',
-          'peanut butter and chocolate'
+          ' peanut butter and chocolate'
         ];
       }
 
