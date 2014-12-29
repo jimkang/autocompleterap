@@ -8,7 +8,7 @@ var templateProbabilities = {
   'If what you say is true, the %s could be dangerous': 7,
   'Blaow!  Now it\'s all over/ Niggaz seeing pink hearts, yellow moons, %s': 5,
   'Peace to the %s, word is bond': 5,
-  'Life ain\'t nothin\' but %s': 12,
+  'Life ain\'t nothin\' but %s': 10,
   'Plus Puffy tryna see me, weak hearts I rip / %s some mark-ass bitches': 5
 };
 
