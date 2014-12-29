@@ -3,6 +3,7 @@ GITDIR = /var/repos/autocompleterap.git
 
 test:
 	node tests/basictests.js
+	node tests/filtertests.js
 
 run:
 	node autocompleterap.js

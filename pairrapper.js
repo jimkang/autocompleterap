@@ -1,5 +1,6 @@
 var sprintf = require('sprintf-js').sprintf;
 var conformAsync = require('conform-async');
+var filterSuggestions = require('./filtersuggestions');
 
 function createPairRapper(opts) {
   if (!opts || !opts.wordnok || !opts.autocompl || !opts.probable) {
@@ -36,6 +37,8 @@ function createPairRapper(opts) {
             return s.trim();
           });
         }
+
+        suggestions = filterSuggestions(suggestions);
 
         if (!suggestions || suggestions.length < 1) {
           // Start over.
