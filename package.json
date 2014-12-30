@@ -25,7 +25,7 @@
     "tape": "^3.0.3"
   },
   "dependencies": {
-    "autocompl": "^1.0.0",
+    "autocompl": "^1.0.1",
     "conform-async": "^1.1.1",
     "jsonfile": "^2.0.0",
     "line-chomper": "^0.4.5",
