@@ -1,7 +1,7 @@
 var probable = require('probable');
 
 var templateProbabilities = {
-  '%s, yeah I\'m fucked up now': 30,
+  '%s, yeah I\'m fucked up now': 25,
   '1, 2, 3 and to the 4 / %s is at the door': 20,
   '%s together, now you know you in trouble': 20,
   'And that\'s realer than Real-Deal Holyfield / And now you %s know how I feel': 8,
@@ -9,7 +9,8 @@ var templateProbabilities = {
   'Blaow!  Now it\'s all over/ Niggaz seeing pink hearts, yellow moons, %s': 5,
   'Peace to the %s, word is bond': 5,
   'Life ain\'t nothin\' but %s': 10,
-  'Plus Puffy tryna see me, weak hearts I rip / %s some mark-ass bitches': 5
+  'Plus Puffy tryna see me, weak hearts I rip / %s some mark-ass bitches': 5,
+  'You know the M.O.P status / In the history of %s we some of the baddest': 5
 };
 
 var table = probable.createRangeTableFromDict(templateProbabilities);
