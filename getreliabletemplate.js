@@ -18,7 +18,8 @@ var templateProbabilities = {
   'Society puts the squeeze on MCs like iron grips of death / From here on in %s long cherish your breath': 3,
   'Caught you tremblin, my %s you\'re rememberin\'': 3,
   'They start scheming, feeling that you\'re too swollen / and that\'s the reason why your %s gets stolen': 3,
-  'Premier in the rear with the %s / And Guru with the mic ready to tear shit up': 3
+  'Premier in the rear with the %s / And Guru with the mic ready to tear shit up': 3,
+  'So think twice blink twice now your %s gone / Don\'t come into this rap game if you don\'t belong': 3  
 };
 
 var table = probable.createRangeTableFromDict(templateProbabilities);
