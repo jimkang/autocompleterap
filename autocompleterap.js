@@ -86,7 +86,7 @@ function getUnvettedTemplate(done) {
   );
 }
 
-if (probable.roll(2) == 1) {
+if (probable.roll(9) > 4) {
   getUnvettedTemplate(postRapForTemplate);
 }
 else {
