@@ -10,6 +10,10 @@ function createPairRapper(opts) {
   var wordnok = opts.wordnok;
   var autocompl = opts.autocompl;
   var probable = opts.probable;
+  var logger = console;
+  if (opts.logger) {
+    logger = opts.logger;
+  }
 
   function getPairRap(rapOpts, done) {
     if (!rapOpts || !rapOpts.template) {
@@ -23,6 +27,8 @@ function createPairRapper(opts) {
         done(error);
         return;
       }
+
+      logger.log('Topic:', topic);
 
       autocompl(topic + ' and', makeRapFromTopicAndSuggestions);
 
@@ -42,7 +48,7 @@ function createPairRapper(opts) {
 
         if (!suggestions || suggestions.length < 1) {
           // Start over.
-          console.log('Got no suggestions for', topic, '. Trying again.');
+          logger.log('Got no suggestions for', topic, '. Trying again.');
           conformAsync.callBackOnNextTick(
             wordnok.getTopic, getAutocompleteSuggestionsForTopic
           );
