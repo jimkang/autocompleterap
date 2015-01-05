@@ -9,7 +9,8 @@ test('Filter words that indicate boring suggestions', function testBoring(t) {
     'electuaries definitional',
     'electuaries drug',
     'hypocenter and epicenter difference',
-    'hypocenter and epicenter'
+    'hypocenter and epicenter',
+    'netter and android app'
   ];
 
   var expectedSuggestions = [

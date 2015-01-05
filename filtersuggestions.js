@@ -2,7 +2,8 @@ var wordDelimiters = /[ ":.,;!?#]/;
 
 var wordsToExcludeInSuggestions = [
   'definition',
-  'difference'
+  'difference',
+  'android'
 ];
 
 function wordIsInExcludedWords(word) {
