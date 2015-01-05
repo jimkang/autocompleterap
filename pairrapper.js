@@ -17,7 +17,7 @@ function createPairRapper(opts) {
 
   function getPairRap(rapOpts, done) {
     if (!rapOpts || !rapOpts.template) {
-      throw new Error('Missing required opt.');
+      throw new Error('Missing required opt. Opts: ' + JSON.stringify(rapOpts));
     }
 
     wordnok.getTopic(getAutocompleteSuggestionsForTopic);
