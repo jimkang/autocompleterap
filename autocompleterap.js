@@ -76,12 +76,18 @@ function getUnvettedTemplate(done) {
       lineCount: 1
     },
     function readDone(error, lines) {
+      var line;
       if (error) {
         console.log(error);
       }
-      else {
-        done(error, lines[0]);
+      else if (!lines || !Array.isArray(lines) || lines.length < 1) {
+        console.log('Could not get valid line for offset ', offsetToGet);
       }
+      else {
+        line = lines[0];
+      }
+
+      done(error, line);
     }
   );
 }
