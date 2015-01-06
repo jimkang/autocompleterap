@@ -11,7 +11,7 @@ run:
 dry-run:
 	node autocompleterap.js --dry
 
-build-template-offsets:
+template-offsets:
 	node getfilelineoffsets.js templates.txt > templatelineoffsets.json
 
 npm-install:
