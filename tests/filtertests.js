@@ -14,12 +14,15 @@ test('Filter words that indicate boring suggestions', function testBoring(t) {
     'netter and android app',
     'butts pronunciation',
     'defenestration meaning',
+    'ap typist',
+    'application and typist'
   ];
 
   var expectedSuggestions = [
     'electuaries definitional',
     'electuaries drug',
-    'hypocenter and epicenter'
+    'hypocenter and epicenter',
+    'application and typist'
   ];
 
   t.deepEqual(filterSuggestions(rawSuggestions), expectedSuggestions);

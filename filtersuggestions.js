@@ -13,10 +13,18 @@ function wordIsInExcludedWords(word) {
   return (wordsToExcludeInSuggestions.indexOf(word) !== -1);
 }
 
+function wordIsLongEnough(word) {
+  return word && word.length > 2;
+}
+
+function wordIsOKInSuggestion(word) {
+  return wordIsLongEnough(word) && !wordIsInExcludedWords(word);
+}
+
 function filterSuggestions(suggestions) {
   return suggestions.filter(function textContainsExcludedWord(text) {
     var wordsInText = text.split(wordDelimiters);
-    return !wordsInText.some(wordIsInExcludedWords);
+    return wordsInText.every(wordIsOKInSuggestion);
   });
 }
 
