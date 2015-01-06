@@ -77,7 +77,8 @@ function createPairRapper(opts) {
     var probabilityMapping = {};
     // Weight the earlier suggestions higher.
     suggestions.forEach(function addSuggestion(suggestion, i) {
-      probabilityMapping[suggestion] = suggestions.length - i;
+      var rank = suggestions.length - i;
+      probabilityMapping[suggestion] = rank * rank;
     });
     // console.log(probabilityMapping);
 
