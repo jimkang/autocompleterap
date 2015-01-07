@@ -56,9 +56,15 @@ function createPairRapper(opts) {
         }
 
         var suggestion = pickSuggestionFromSuggestions(suggestions);
-        suggestion = formatSuggestion(suggestion);
+        suggestion = formatSuggestion(suggestion);        
         var rap = capitalizeFirst(sprintf(rapOpts.template, suggestion));
-        done(error, formatRap(rap));
+        var formattedRap = formatRap(rap);
+        if (formattedRap.length > 140) {
+          done(new Error('Generated rap is too long'), formattedRap);
+        }
+        else {
+          done(null, formattedRap);
+        }
       }
     }
   }

@@ -7,6 +7,7 @@ var lineChomper = require('line-chomper');
 var jsonfile = require('jsonfile');
 var getReliableTemplate = require('./getreliabletemplate');
 var Twit = require('twit');
+var conformAsync = require('conform-async');
 
 var dryRun = false;
 
@@ -41,7 +42,9 @@ function postRapForTemplate(error, template) {
 
 function postPairRap(error, rap) {
   if (error) {
-    console.log(error);
+    console.log(error, rap);
+    console.log('Trying again.');
+    conformAsync.callBackOnNextTick(postAutocompleteRap);
   }
   else {
     console.log(rap);
@@ -92,9 +95,13 @@ function getUnvettedTemplate(done) {
   );
 }
 
-if (probable.roll(3) > 0) {
-  getUnvettedTemplate(postRapForTemplate);
+function postAutocompleteRap() {
+  if (probable.roll(3) > 0) {
+    getUnvettedTemplate(postRapForTemplate);
+  }
+  else {
+    postRapForTemplate(null, getReliableTemplate());
+  }
 }
-else {
-  postRapForTemplate(null, getReliableTemplate());
-}
+
+postAutocompleteRap();

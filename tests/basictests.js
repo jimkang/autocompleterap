@@ -87,6 +87,44 @@ test('Trying again if there\'s no suggestions', function tryAgainTest(t) {
 });
 
 
+test('Error for too long raps', function tooLongTest(t) {
+  t.plan(2);
+
+  var pairRapper = createPairRapper({
+    wordnok: mockWordnok,
+    autocompl: function mockAutocompl(partialSearchTerm, done) {
+      var results = [];
+
+      if (partialSearchTerm === 'peanut butter and') {
+        results = [
+          'peanut butter and jelly',
+          'peanut butter and jelly dance',
+          'peanut butter and chocolate'
+        ];
+      }
+
+      conformAsync.callBackOnNextTick(done, null, results);
+    },
+    probable: mockProbable
+  });
+
+  pairRapper.getPairRap(
+    {
+      template: '%s together, now you know you in trouble / ' +
+        'Ain\'t nothing but a G thang, baby / ' +
+        'Two loc\'ed out niggas goin\' crazy / ' +
+        'Death Row is the label that pays me / ' +
+        'Unfadeable so please don\'t try to fade this'
+    },
+    function checkRap(error, rap) {
+      t.ok(error, 'Should get error.');
+      t.equal(error.message, 'Generated rap is too long', 
+        'Should get "too long" error message.'
+      );
+    }
+  );
+});
+
 test('Formatting', function formattingTest(t) {
   t.plan(2);
 
