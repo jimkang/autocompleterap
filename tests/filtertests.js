@@ -19,15 +19,13 @@ test('Filter words that indicate boring suggestions', function testBoring(t) {
     'dejection and synonyms',
     'dejection and synonym',
     'dejection rejection',
-    'dejection antonym'
+    'dejection antonym',
+    'pro-choicers hail satan'
   ];
 
   var expectedSuggestions = [
-    'electuaries definitional',
-    'electuaries drug',
     'hypocenter and epicenter',
-    'application and typist',
-    'dejection rejection'
+    'application and typist'
   ];
 
   t.deepEqual(filterSuggestions(rawSuggestions), expectedSuggestions);

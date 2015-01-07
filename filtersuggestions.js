@@ -25,10 +25,15 @@ function wordIsOKInSuggestion(word) {
   return wordIsLongEnough(word) && !wordIsInExcludedWords(word);
 }
 
+function wordIsRequiredWord(word) {
+  return word === 'and';
+}
+
 function filterSuggestions(suggestions) {
-  return suggestions.filter(function textContainsExcludedWord(text) {
+  return suggestions.filter(function suggestionIsOK(text) {
     var wordsInText = text.split(wordDelimiters);
-    return wordsInText.every(wordIsOKInSuggestion);
+    return wordsInText.some(wordIsRequiredWord) && 
+      wordsInText.every(wordIsOKInSuggestion);
   });
 }
 
