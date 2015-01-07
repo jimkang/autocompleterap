@@ -6,7 +6,11 @@ var wordsToExcludeInSuggestions = [
   'difference',
   'android',
   'pronunciation',
-  'meaning'
+  'meaning',
+  'synonym',
+  'synonyms',
+  'antonym',
+  'antonyms'
 ];
 
 function wordIsInExcludedWords(word) {
