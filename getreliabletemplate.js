@@ -4,7 +4,7 @@ var templateProbabilities = {
   '%s, yeah I\'m fucked up now': 12,
   '1, 2, 3 and to the 4 / %s is at the door': 12,
   '%s together, now you know you in trouble': 12,
-  'And that\'s realer than Real-Deal Holyfield / And now you %ss know how I feel': 4,
+  'And that\'s realer than Real-Deal Holyfield / And now you %ss know how I feel': 2,
   'If what you say is true, the %s could be dangerous': 7,
   'Blaow! Now it\'s all over / Niggaz seeing pink hearts, yellow moons, %s': 5,
   'Peace to the %s, word is bond': 5,
