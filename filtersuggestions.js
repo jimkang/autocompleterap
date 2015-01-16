@@ -55,7 +55,7 @@ function filterSuggestions(opts, done) {
       for (var i = 0; i < arrayOfArraysOfNouns.length; ++i) {
         var suggestion = suggestionsFilteredInitially[i];
         var nounsInSuggestion = arrayOfArraysOfNouns[i];
-        console.log('Nouns:', nounsInSuggestion);
+
         if (nounsInSuggestion.length > 1) {
           suggestionsFilteredForNouns.push(suggestion);
         }
