@@ -1,5 +1,8 @@
 var test = require('tape');
 var filterSuggestions = require('../filtersuggestions');
+var conformAsync = require('conform-async');
+var createNounfinder = require('nounfinder');
+var config = require('../config');
 
 test('Filter words that indicate boring suggestions', function testBoring(t) {
   t.plan(1);
@@ -20,7 +23,30 @@ test('Filter words that indicate boring suggestions', function testBoring(t) {
     'dejection and synonym',
     'dejection rejection',
     'dejection antonym',
-    'pro-choicers hail satan'
+    'pro-choicers hail satan',
+    'asynchronous and synchronous',
+    'hardboiled and high heeled'
+  ];
+
+  var nounsInSuggestions = [
+    ['electuaries', 'definition'],
+    ['electuaries'],
+    ['electuaries', 'définition'],
+    ['electuaries', 'drug'],
+    ['hypocenter', 'epicenter', 'difference'],
+    ['hypocenter', 'epicenter'],
+    ['netter', 'android', 'app'],
+    ['butts', 'pronunciation'],
+    ['defenestration', 'meaning'],
+    ['ap', 'typist'],
+    ['application', 'typist'],
+    ['dejection', 'synonyms'],
+    ['dejection', 'synonym'],
+    ['dejection', 'rejection'],
+    ['dejection', 'antonym'],
+    ['pro-choicers', 'hail', 'satan'],
+    [],
+    []
   ];
 
   var expectedSuggestions = [
@@ -28,5 +54,21 @@ test('Filter words that indicate boring suggestions', function testBoring(t) {
     'application and typist'
   ];
 
-  t.deepEqual(filterSuggestions(rawSuggestions), expectedSuggestions);
+  filterSuggestions(
+    {
+      suggestions: rawSuggestions, 
+      nounfinder: {
+        getNounsFromText: function mockGetNounsFromText(text, done) {
+          var nouns = nounsInSuggestions[rawSuggestions.indexOf(text)];
+          conformAsync.callBackOnNextTick(done, null, nouns);
+        }
+      }
+      // createNounfinder({
+      //   wordnikAPIKey: config.wordnikAPIKey
+      // });
+    },
+    function done(error, filtered) {
+      t.deepEqual(filtered, expectedSuggestions);
+    }
+  );
 });

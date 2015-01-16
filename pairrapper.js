@@ -1,6 +1,8 @@
 var sprintf = require('sprintf-js').sprintf;
 var conformAsync = require('conform-async');
 var filterSuggestions = require('./filtersuggestions');
+var config = require('./config');
+var createNounfinder = require('nounfinder');
 
 function createPairRapper(opts) {
   if (!opts || !opts.wordnok || !opts.autocompl || !opts.probable) {
@@ -14,6 +16,10 @@ function createPairRapper(opts) {
   if (opts.logger) {
     logger = opts.logger;
   }
+
+  var nounfinder = createNounfinder({
+    wordnikAPIKey: config.wordnikAPIKey
+  });
 
   function getPairRap(rapOpts, done) {
     if (!rapOpts || !rapOpts.template) {
@@ -44,27 +50,41 @@ function createPairRapper(opts) {
           });
         }
 
-        suggestions = filterSuggestions(suggestions);
+        filterSuggestions(
+          {
+            suggestions: suggestions,
+            nounfinder: nounfinder
+          },
+          function useFilteredSuggestions(error, filteredSuggestions) {
+            var noSuggestions = (
+              !filteredSuggestions || filteredSuggestions.length < 1
+            );
+            if (error || noSuggestions) {
+              // Start over.
+              if (error) {
+                logger.log(error);
+              }
+              if (noSuggestions) {
+                logger.log('Got no suggestions for', topic, '. Trying again.');
+              }
+              conformAsync.callBackOnNextTick(
+                wordnok.getTopic, getAutocompleteSuggestionsForTopic
+              );
+              return;
+            }
 
-        if (!suggestions || suggestions.length < 1) {
-          // Start over.
-          logger.log('Got no suggestions for', topic, '. Trying again.');
-          conformAsync.callBackOnNextTick(
-            wordnok.getTopic, getAutocompleteSuggestionsForTopic
-          );
-          return;
-        }
-
-        var suggestion = pickSuggestionFromSuggestions(suggestions);
-        suggestion = formatSuggestion(suggestion);        
-        var rap = capitalizeFirst(sprintf(rapOpts.template, suggestion));
-        var formattedRap = formatRap(rap);
-        if (formattedRap.length > 140) {
-          done(new Error('Generated rap is too long'), formattedRap);
-        }
-        else {
-          done(null, formattedRap);
-        }
+            var suggestion = pickSuggestionFromSuggestions(filteredSuggestions);
+            suggestion = formatSuggestion(suggestion);
+            var rap = capitalizeFirst(sprintf(rapOpts.template, suggestion));
+            var formattedRap = formatRap(rap);
+            if (formattedRap.length > 140) {
+              done(new Error('Generated rap is too long'), formattedRap);
+            }
+            else {
+              done(null, formattedRap);
+            }
+          }
+        );
       }
     }
   }
