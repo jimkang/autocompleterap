@@ -96,7 +96,7 @@ function getUnvettedTemplate(done) {
 }
 
 function postAutocompleteRap() {
-  if (probable.roll(5) > 0) {
+  if (probable.roll(8) === 0) {
     getUnvettedTemplate(postRapForTemplate);
   }
   else {
