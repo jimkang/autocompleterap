@@ -16,7 +16,7 @@ var templateProbabilities = {
   'Caught you tremblin, my %s you\'re rememberin\'': 3,
   'They start scheming, feeling that you\'re too swollen / and that\'s the reason why your %s gets stolen': 3,
   'Premier in the rear with the %s / And Guru with the mic ready to tear shit up': 3,
-  'I don\'t stunt, I regulate / %s, I seperate, watchin\' crab niggaz marinate': 8
+  'I don\'t stunt, I regulate / %s, I separate, watchin\' crab niggaz marinate': 8
 };
 
 var table = probable.createRangeTableFromDict(templateProbabilities);
