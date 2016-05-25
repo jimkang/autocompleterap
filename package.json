@@ -22,18 +22,19 @@
   },
   "homepage": "https://github.com/jimkang/autocompleterap",
   "devDependencies": {
-    "tape": "^3.0.3"
+    "tape": "^3.6.1"
   },
   "dependencies": {
     "autocompl": "^1.0.1",
+    "call-next-tick": "^1.1.2",
     "conform-async": "^1.1.1",
     "jsonfile": "^2.0.0",
     "line-chomper": "^0.4.5",
-    "nounfinder": "^1.0.0",
+    "nounfinder": "^2.0.0",
     "probable": "^1.0.0",
     "queue-async": "^1.0.7",
     "sprintf-js": "^1.0.2",
     "twit": "^1.1.18",
-    "wordnok": "^1.0.0"
+    "wordnok": "^3.2.0"
   }
 }

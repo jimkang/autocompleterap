@@ -1,6 +1,6 @@
 var test = require('tape');
 var filterSuggestions = require('../filtersuggestions');
-var conformAsync = require('conform-async');
+var callNextTick = require('call-next-tick');
 var createNounfinder = require('nounfinder');
 var config = require('../config');
 
@@ -60,7 +60,7 @@ test('Filter words that indicate boring suggestions', function testBoring(t) {
       nounfinder: {
         getNounsFromText: function mockGetNounsFromText(text, done) {
           var nouns = nounsInSuggestions[rawSuggestions.indexOf(text)];
-          conformAsync.callBackOnNextTick(done, null, nouns);
+          callNextTick(done, null, nouns);
         }
       }
       // createNounfinder({

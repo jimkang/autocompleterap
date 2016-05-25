@@ -1,5 +1,5 @@
 var sprintf = require('sprintf-js').sprintf;
-var conformAsync = require('conform-async');
+var callNextTick = require('call-next-tick');
 var filterSuggestions = require('./filtersuggestions');
 var config = require('./config');
 var createNounfinder = require('nounfinder');
@@ -67,7 +67,7 @@ function createPairRapper(opts) {
               if (noSuggestions) {
                 logger.log('Got no suggestions for', topic, '. Trying again.');
               }
-              conformAsync.callBackOnNextTick(
+              callNextTick(
                 wordnok.getTopic, getAutocompleteSuggestionsForTopic
               );
               return;

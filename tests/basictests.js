@@ -1,10 +1,10 @@
 var test = require('tape');
-var conformAsync = require('conform-async');
+var callNextTick = require('call-next-tick');
 var createPairRapper = require('../pairrapper');
 
 var mockWordnok = {
   getTopic: function mockGetTopic(done) {
-    conformAsync.callBackOnNextTick(done, null, 'peanut butter');
+    callNextTick(done, null, 'peanut butter');
   }
 };
 
@@ -35,7 +35,7 @@ test('Basic test', function basicTest(t) {
         ];
       }
 
-      conformAsync.callBackOnNextTick(done, null, results);
+      callNextTick(done, null, results);
     },
     probable: mockProbable
   });
@@ -70,7 +70,7 @@ test('Trying again if there\'s no suggestions', function tryAgainTest(t) {
       }
 
       autocomplCallCount += 1;
-      conformAsync.callBackOnNextTick(done, null, results);
+      callNextTick(done, null, results);
     },
     probable: mockProbable
   });
@@ -103,7 +103,7 @@ test('Error for too long raps', function tooLongTest(t) {
         ];
       }
 
-      conformAsync.callBackOnNextTick(done, null, results);
+      callNextTick(done, null, results);
     },
     probable: mockProbable
   });
@@ -141,7 +141,7 @@ test('Formatting', function formattingTest(t) {
         ];
       }
 
-      conformAsync.callBackOnNextTick(done, null, results);
+      callNextTick(done, null, results);
     },
     probable: mockProbable
   });

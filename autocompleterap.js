@@ -7,7 +7,7 @@ var lineChomper = require('line-chomper');
 var jsonfile = require('jsonfile');
 var getReliableTemplate = require('./getreliabletemplate');
 var Twit = require('twit');
-var conformAsync = require('conform-async');
+var callNextTick = require('call-next-tick');
 
 var dryRun = false;
 
@@ -44,7 +44,7 @@ function postPairRap(error, rap) {
   if (error) {
     console.log(error, rap);
     console.log('Trying again.');
-    conformAsync.callBackOnNextTick(postAutocompleteRap);
+    callNextTick(postAutocompleteRap);
   }
   else {
     console.log(rap);

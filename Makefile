@@ -1,5 +1,16 @@
-HOMEDIR = /var/www/autocompleterap
-GITDIR = /var/repos/autocompleterap.git
+HOMEDIR = $(shell pwd)
+USER = bot
+SERVER = smidgeo
+SSHCMD = ssh $(USER)@$(SERVER)
+PROJECTNAME = autocompleterap
+APPDIR = /opt/$(PROJECTNAME)
+
+pushall: sync
+	git push origin master
+
+sync:
+	rsync -a $(HOMEDIR) $(USER)@$(SERVER):/opt --exclude node_modules/
+	$(SSHCMD) "cd $(APPDIR) && npm install"
 
 test:
 	node tests/basictests.js
@@ -13,16 +24,3 @@ dry-run:
 
 template-offsets:
 	node getfilelineoffsets.js templates.txt > templatelineoffsets.json
-
-npm-install:
-	cd $(HOMEDIR)
-	npm install
-	npm prune
-
-sync-worktree-to-git:
-	git --work-tree=$(HOMEDIR) --git-dir=$(GITDIR) checkout -f
-
-post-receive: sync-worktree-to-git npm-install
-
-pushall:
-	git push origin master && git push server master
