@@ -1,3 +1,5 @@
+/* global process, __dirname */
+
 var createPairRapper = require('./pairrapper');
 var autocompl = require('autocompl');
 var probable = require('probable');
@@ -12,7 +14,7 @@ var callNextTick = require('call-next-tick');
 var dryRun = false;
 
 if (process.argv.length > 2) {
-  dryRun = (process.argv[2].toLowerCase() == '--dry');
+  dryRun = process.argv[2].toLowerCase() == '--dry';
 }
 
 var pairRapper = createPairRapper({
@@ -28,8 +30,7 @@ var twit = new Twit(config.twitter);
 function postRapForTemplate(error, template) {
   if (error) {
     console.log(error);
-  }
-  else {
+  } else {
     pairRapper.getPairRap(
       {
         // template: '%s and %s, yeah I\'m fucked up now'
@@ -45,8 +46,7 @@ function postPairRap(error, rap) {
     console.log(error, rap);
     console.log('Trying again.');
     callNextTick(postAutocompleteRap);
-  }
-  else {
+  } else {
     console.log(rap);
     if (!dryRun) {
       twit.post(
@@ -54,12 +54,11 @@ function postPairRap(error, rap) {
         {
           status: rap
         },
-        function done(twitterError, data, response) {
+        function done(twitterError, data) {
           if (twitterError) {
             console.log(twitterError);
             console.log('data:', data);
-          }
-          else {
+          } else {
             console.log('Posted to Twitter.');
           }
         }
@@ -69,7 +68,9 @@ function postPairRap(error, rap) {
 }
 
 function getUnvettedTemplate(done) {
-  var templateOffsets = jsonfile.readFileSync(__dirname + '/templatelineoffsets.json');
+  var templateOffsets = jsonfile.readFileSync(
+    __dirname + '/templatelineoffsets.json'
+  );
   var offsetToGet = probable.pickFromArray(templateOffsets);
   lineChomper.chomp(
     __dirname + '/templates.txt',
@@ -82,11 +83,9 @@ function getUnvettedTemplate(done) {
       var line;
       if (error) {
         console.log(error);
-      }
-      else if (!lines || !Array.isArray(lines) || lines.length < 1) {
+      } else if (!lines || !Array.isArray(lines) || lines.length < 1) {
         console.log('Could not get valid line for offset ', offsetToGet);
-      }
-      else {
+      } else {
         line = lines[0];
       }
 
@@ -98,8 +97,7 @@ function getUnvettedTemplate(done) {
 function postAutocompleteRap() {
   if (probable.roll(8) === 0) {
     getUnvettedTemplate(postRapForTemplate);
-  }
-  else {
+  } else {
     postRapForTemplate(null, getReliableTemplate());
   }
 }

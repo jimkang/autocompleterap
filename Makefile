@@ -24,3 +24,6 @@ dry-run:
 
 template-offsets:
 	node getfilelineoffsets.js templates.txt > templatelineoffsets.json
+
+prettier:
+	prettier --single-quote --write "**/*.js"

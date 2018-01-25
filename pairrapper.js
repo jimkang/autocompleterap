@@ -56,9 +56,8 @@ function createPairRapper(opts) {
             nounfinder: nounfinder
           },
           function useFilteredSuggestions(error, filteredSuggestions) {
-            var noSuggestions = (
-              !filteredSuggestions || filteredSuggestions.length < 1
-            );
+            var noSuggestions =
+              !filteredSuggestions || filteredSuggestions.length < 1;
             if (error || noSuggestions) {
               // Start over.
               if (error) {
@@ -68,7 +67,8 @@ function createPairRapper(opts) {
                 logger.log('Got no suggestions for', topic, '. Trying again.');
               }
               callNextTick(
-                wordnok.getTopic, getAutocompleteSuggestionsForTopic
+                wordnok.getTopic,
+                getAutocompleteSuggestionsForTopic
               );
               return;
             }
@@ -79,8 +79,7 @@ function createPairRapper(opts) {
             var formattedRap = formatRap(rap);
             if (formattedRap.length > 140) {
               done(new Error('Generated rap is too long'), formattedRap);
-            }
-            else {
+            } else {
               done(null, formattedRap);
             }
           }

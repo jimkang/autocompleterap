@@ -15,7 +15,7 @@ var wordsToExcludeInSuggestions = [
 ];
 
 function wordIsInExcludedWords(word) {
-  return (wordsToExcludeInSuggestions.indexOf(word) !== -1);
+  return wordsToExcludeInSuggestions.indexOf(word) !== -1;
 }
 
 function wordIsLongEnough(word) {
@@ -33,8 +33,10 @@ function wordIsRequiredWord(word) {
 function filterSuggestionsSync(suggestions) {
   return suggestions.filter(function suggestionIsOK(text) {
     var wordsInText = text.split(wordDelimiters);
-    return wordsInText.some(wordIsRequiredWord) && 
-      wordsInText.every(wordIsOKInSuggestion);
+    return (
+      wordsInText.some(wordIsRequiredWord) &&
+      wordsInText.every(wordIsOKInSuggestion)
+    );
   });
 }
 
@@ -48,8 +50,7 @@ function filterSuggestions(opts, done) {
   q.awaitAll(function checkNouns(error, arrayOfArraysOfNouns) {
     if (error) {
       done(error);
-    }
-    else {
+    } else {
       var suggestionsFilteredForNouns = [];
 
       for (var i = 0; i < arrayOfArraysOfNouns.length; ++i) {
@@ -58,8 +59,7 @@ function filterSuggestions(opts, done) {
 
         if (nounsInSuggestion.length > 1) {
           suggestionsFilteredForNouns.push(suggestion);
-        }
-        else {
+        } else {
           console.log('Filtering out:', suggestion);
         }
       }

@@ -1,3 +1,5 @@
+/* global process */
+
 var lineChomper = require('line-chomper');
 
 if (process.argv.length < 3) {
@@ -7,6 +9,6 @@ if (process.argv.length < 3) {
 
 var filename = process.argv[2];
 
-lineChomper.mapLineOffsets(filename, function (err, lineOffsets) {
-    console.log(JSON.stringify(lineOffsets, null, '  '));
+lineChomper.mapLineOffsets(filename, function(err, lineOffsets) {
+  console.log(JSON.stringify(lineOffsets, null, '  '));
 });

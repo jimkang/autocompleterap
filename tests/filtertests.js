@@ -1,8 +1,6 @@
 var test = require('tape');
 var filterSuggestions = require('../filtersuggestions');
 var callNextTick = require('call-next-tick');
-var createNounfinder = require('nounfinder');
-var config = require('../config');
 
 test('Filter words that indicate boring suggestions', function testBoring(t) {
   t.plan(1);
@@ -56,7 +54,7 @@ test('Filter words that indicate boring suggestions', function testBoring(t) {
 
   filterSuggestions(
     {
-      suggestions: rawSuggestions, 
+      suggestions: rawSuggestions,
       nounfinder: {
         getNounsFromText: function mockGetNounsFromText(text, done) {
           var nouns = nounsInSuggestions[rawSuggestions.indexOf(text)];
