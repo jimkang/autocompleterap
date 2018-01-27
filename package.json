@@ -28,12 +28,15 @@
     "autocompl": "^1.0.1",
     "call-next-tick": "^1.1.2",
     "conform-async": "^1.1.1",
+    "d3-queue": "^3.0.7",
+    "idmaker": "^0.1.1",
     "jsonfile": "^2.0.0",
     "line-chomper": "^0.4.5",
     "nounfinder": "^2.0.0",
     "probable": "^1.0.0",
     "queue-async": "^1.0.7",
     "sprintf-js": "^1.0.2",
+    "static-web-archive-on-git": "^2.0.1",
     "twit": "^1.1.18",
     "wordnok": "^3.2.0"
   }
