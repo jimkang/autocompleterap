@@ -132,9 +132,9 @@ function getUnvettedTemplate(done) {
 
 function postAutocompleteRap() {
   if (probable.roll(8) === 0) {
-    getUnvettedTemplate(postRapForTemplate);
-  } else {
     postRapForTemplate(null, getReliableTemplate());
+  } else {
+    getUnvettedTemplate(postRapForTemplate);
   }
 }
 
